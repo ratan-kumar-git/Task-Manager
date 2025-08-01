@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import { validateEmail } from "../../utils/helper";
-import Button from "../../components/buttons/button";
-import Input from "../../components/inputs/input";
+import Button from "../../components/buttons/Button";
+import Input from "../../components/inputs/Input";
 import ProfilePhotoSelector from "../../components/inputs/ProfilePhotoSelector";
 import { API_PATH } from "../../utils/apiPath";
 import axiosInstance from "../../utils/axiosInstance";
