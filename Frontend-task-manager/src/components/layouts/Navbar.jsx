@@ -1,6 +1,6 @@
-import React, { act, useState } from "react";
+import React, { useState } from "react";
 import Sidemenu from "./Sidemenu";
-import { HiOutlineMenu } from 'react-icons/hi';
+import { HiOutlineMenu, HiOutlineX } from 'react-icons/hi';
 
 const Navbar = ({ activeMenu }) => {
   const [openSideMenu, setOpenSideMenu] = useState(false);
@@ -14,14 +14,14 @@ const Navbar = ({ activeMenu }) => {
           }}
         >
           {openSideMenu ? (
-            <HiOutlinex className="text-2xl" />
+            <HiOutlineX className="text-2xl" />
           ) : (
             <HiOutlineMenu className="text-2xl" />
           )}
         </button>
         <h2 className="text-lg font-medium text-black">Task Manager</h2>
         {openSideMenu && (
-            <div className="fixed top[16px] -ml-4 bg-white">
+            <div className="fixed top-[61px] -ml-4 bg-white">
                 <Sidemenu activeMenu={activeMenu} />
             </div>
         )}

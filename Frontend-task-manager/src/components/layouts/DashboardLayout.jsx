@@ -1,10 +1,8 @@
-import React, { act, useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import Navbar from "./Navbar";
 import { UserContext } from "../../context/useContext";
 import Sidemenu from "./Sidemenu";
-import { useNavigate } from "react-router-dom";
-import axiosInstance from "../../utils/axiosInstance";
-import { API_PATH } from "../../utils/apiPath";
+
 
 const DashboardLayout = ({ children, activeMenu }) => {
   const { user } = useContext(UserContext);
