@@ -34,6 +34,10 @@ app.use("/api/reports", reportRoutes)
 // server uploads folder 
 app.use("/uploads", express.static(path.join(__dirname, "uploads")))
 
+app.get("/", (req, res) => {
+  res.send("Welcome to Task Manager API");
+});
+
 
 // start server
 const PORT =process.env.PORT || 3000
