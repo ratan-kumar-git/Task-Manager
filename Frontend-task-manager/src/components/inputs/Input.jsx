@@ -9,7 +9,7 @@ const Input = ({ value, onChange, label, placeholder, type }) => {
   };
   return (
     <>
-      <label htmlFor={label} className="text-lg font-normal mb-1">
+      <label htmlFor={label} className="text-base font-normal mb-1">
         {label}
       </label>
       <div className="flex justify-between items-center">
@@ -20,19 +20,19 @@ const Input = ({ value, onChange, label, placeholder, type }) => {
           placeholder={placeholder}
           value={value}
           onChange={onChange}
-          className="px-3 py-2 rounded-md mb-5 w-full"
+          className="px-2 py-1 text-base rounded-md mb-3 w-full"
         />
 
         {type == "password" && (
           <>
             {isPasswordShow ? (
               <FaEyeSlash
-                className="text-xl ml-2 mb-5"
+                className="text-xl ml-2 mb-3"
                 onClick={toggleShowPassword}
               />
             ) : (
               <FaRegEye
-                className="text-xl ml-2 mb-5"
+                className="text-xl ml-2 mb-3"
                 onClick={toggleShowPassword}
               />
             )}

@@ -19,11 +19,14 @@ const Navbar = ({ activeMenu }) => {
             <HiOutlineMenu className="text-2xl" />
           )}
         </button>
-        <h2 className="text-lg font-medium text-black">Task Manager</h2>
+        <a href="/" className="no-underline text-xl font-bold bg-slate-200 px-4 py-1 rounded-lg">
+          <span className="text-red-500">Task</span>
+          <span className="text-yellow-400">Manager</span>
+        </a>
         {openSideMenu && (
-            <div className="fixed top-[61px] -ml-4 bg-white">
-                <Sidemenu activeMenu={activeMenu} />
-            </div>
+          <div className="fixed top-[68px] -ml-4 bg-white">
+            <Sidemenu activeMenu={activeMenu} />
+          </div>
         )}
       </div>
     </>

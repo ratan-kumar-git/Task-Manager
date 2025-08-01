@@ -12,7 +12,7 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
-  const {updateUser} = useContext(UserContext)
+  const { updateUser } = useContext(UserContext)
   const navigate = useNavigate()
 
   const loginSubmitHandler = async (e) => {
@@ -60,47 +60,51 @@ const Login = () => {
   };
   return (
     <>
-      <form onSubmit={loginSubmitHandler}>
-        <div className="flex flex-col justify-center h-auto w-80 sm:w-96 p-10 bg-slate-400 shadow-xl rounded-lg">
-          <h1 className="text-2xl text-center font-bold text-white mb-5">
-            <a href="/" className="no-underline">
-              <span className="text-red-500">Task</span>
-              <span className="text-yellow-400">Manager</span>
-            </a>
-          </h1>
-          <h1 className="text-2xl font-semibold font-serif text-left mb-5">
-            Login
-          </h1>
-          <Input
-            type={"email"}
-            value={email}
-            onChange={(e) => {
-              setEmail(e.target.value);
-            }}
-            placeholder={"demo@gmail.com"}
-            label={"Enter Your Email"}
-          />
+      <div className="w-full h-screen flex items-center justify-center bg-gray-100">
+        <form onSubmit={loginSubmitHandler}>
+          <div className="flex flex-col justify-center h-auto w-80 sm:w-96 px-10 py-8 bg-slate-400 shadow-xl rounded-lg">
+            <h1 className="text-2xl text-center font-bold text-white mb-5">
+              <a href="/" className="no-underline">
+                <span className="text-red-500">Task</span>
+                <span className="text-yellow-400">Manager</span>
+              </a>
+            </h1>
+            <div className="mb-3">
+              <h1 className="text-xl font-semibold text-gray-900">Login</h1>
+              <p className="text-base text-gray-600">Welcome back! Please login to your account.</p>
+            </div>
 
-          <Input
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            placeholder={"Enter your password"}
-            type={"password"}
-            label={"Enter Your Password"}
-          />
+            <Input
+              type={"email"}
+              value={email}
+              onChange={(e) => {
+                setEmail(e.target.value);
+              }}
+              placeholder={"demo@gmail.com"}
+              label={"Enter Your Email"}
+            />
 
-          <Button buttonText={"Login"} />
+            <Input
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder={"Enter your password"}
+              type={"password"}
+              label={"Enter Your Password"}
+            />
 
-          {error && <p className="text-red-500 text-sm mt-4">{error}</p>}
+            <Button buttonText={"Login"} />
 
-          <p className="mt-2">
-            I don't have Account.{" "}
-            <a href="/signup" className="text-blue-600 underline">
-              Signup
-            </a>
-          </p>
-        </div>
-      </form>
+            {error && <p className="text-red-500 text-sm">{error}</p>}
+
+            <p className="">
+              I don't have Account.{" "}
+              <a href="/signup" className="text-blue-600 underline">
+                Signup
+              </a>
+            </p>
+          </div>
+        </form>
+      </div>
     </>
   );
 };

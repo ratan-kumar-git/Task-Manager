@@ -7,16 +7,19 @@ import { LuFileSpreadsheet } from "react-icons/lu";
 import TaskStatusTab from "../../components/TaskStatusTab";
 import TaskCard from "../../components/cards/TaskCard";
 import toast from "react-hot-toast";
+import LoadingAnimation from "../../components/LoadingAnimation";
 
 const MangeTasks = () => {
   const [allTasks, setAllTasks] = useState([]);
   const [tabs, setTabs] = useState([]);
   const [filterStatus, setFilterStatus] = useState("All");
+  const [loading, setLoading] = useState(false)
   const navigate = useNavigate();
 
   // get all tasks
   const getAllTasks = async () => {
     try {
+      setLoading(true);
       const response = await axiosInstance.get(API_PATH.TASKS.GET_ALL_TASKS, {
         params: {
           status: filterStatus === "All" ? "" : filterStatus,
@@ -33,8 +36,10 @@ const MangeTasks = () => {
       ];
 
       setTabs(statusArray);
+      setLoading(false);
     } catch (error) {
       console.error("Error in fetching users: ", error);
+      setLoading(false);
     }
   };
 
@@ -68,7 +73,7 @@ const MangeTasks = () => {
 
   useEffect(() => {
     getAllTasks(filterStatus);
-    return () => {};
+    return () => { };
   }, [filterStatus]);
 
   return (
@@ -102,32 +107,33 @@ const MangeTasks = () => {
             </div>
           )}
         </div>
-
-        {/* card here */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
-          {allTasks?.map((item, index) => (
-            <TaskCard
-              key={item._id}
-              title={item.title}
-              description={item.description}
-              priority={item.priority}
-              status={item.status}
-              progress={item.progress}
-              createdAt={item.createdAt}
-              dueDate={item.dueDate}
-              assignedTo={item.assignedTo?.map((item) => item.profileImageUrl)}
-              attachmentCount={item.attachments?.length || 0}
-              completedTodoCount={item.completedTodoCount || 0}
-              todoChecklist={item.todoChecklist || []}
-              onClick={() => handleClick(item)}
-            />
-          ))}
-        </div>
-        {allTasks?.length === 0 && (
-          <p className="text-center text-lg m-10">Task not found</p>
-        )}
+        {loading ? <LoadingAnimation /> : (<>
+          {/* card here */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
+            {allTasks?.map((item, index) => (
+              <TaskCard
+                key={item._id}
+                title={item.title}
+                description={item.description}
+                priority={item.priority}
+                status={item.status}
+                progress={item.progress}
+                createdAt={item.createdAt}
+                dueDate={item.dueDate}
+                assignedTo={item.assignedTo?.map((item) => item.profileImageUrl)}
+                attachmentCount={item.attachments?.length || 0}
+                completedTodoCount={item.completedTodoCount || 0}
+                todoChecklist={item.todoChecklist || []}
+                onClick={() => handleClick(item)}
+              />
+            ))}
+          </div>
+          {allTasks?.length === 0 && (
+            <p className="text-center text-lg m-10">Task not found</p>
+          )}
+        </>)}
       </div>
-    </DashboardLayout>
+    </DashboardLayout >
   );
 };
 

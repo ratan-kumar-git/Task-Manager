@@ -2,8 +2,8 @@ require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const path = require("path");
-const connectDB = require('./config/db')
 
+const connectDB = require('./config/db')
 const authRoutes = require('./routes/authRoutes')
 const userRoutes = require('./routes/userRoutes')
 const taskRoutes = require('./routes/taskRoutes')
@@ -34,10 +34,6 @@ app.use("/api/reports", reportRoutes)
 // server uploads folder 
 app.use("/uploads", express.static(path.join(__dirname, "uploads")))
 
-// demo
-app.get("/", (req, res) => {
-  res.send("Hello form server");
-});
 
 // start server
 const PORT =process.env.PORT || 3000

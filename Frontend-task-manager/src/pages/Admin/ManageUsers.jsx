@@ -5,19 +5,24 @@ import { API_PATH } from '../../utils/apiPath'
 import { LuFileSpreadsheet } from 'react-icons/lu'
 import UserCard from '../../components/cards/UserCard'
 import toast from "react-hot-toast";
+import LoadingAnimation from '../../components/LoadingAnimation'
 
 const ManageUsers = () => {
   const [allUsers, setAllUsers] = useState([])
+  const [loading, setLoading] = useState(false)
   
   const getAllUsers = async () => {
     try {
+      setLoading(true)
       const response = await axiosInstance.get(API_PATH.USERS.GET_ALL_USERS)
 
       if (response.data?.length > 0) {
         setAllUsers(response.data)
       }
+      setLoading(false)
     } catch (error) {
       console.error("Error in fetching users: ", error);
+      setLoading(false)
     }
   }
 
@@ -59,11 +64,13 @@ const ManageUsers = () => {
             Download Report
           </button>
         </div>
+        {loading ? <LoadingAnimation /> : (<>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
           {allUsers?.map((user) => (
             <UserCard key={user._id} userInfo={user} />
           ))}
         </div>
+        </>)}
       </div>
 
     </DashboardLayout>

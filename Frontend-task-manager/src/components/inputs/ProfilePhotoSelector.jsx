@@ -39,16 +39,16 @@ const ProfilePhotoSelector = ({ image, setImage }) => {
         />
 
         {!image ? (
-          <div className="w-20 h-20 flex items-center justify-center bg-blue-100/50 rounded-full relative">
+          <div className="w-16 h-16 flex items-center justify-center bg-blue-100/50 rounded-full relative">
             <LuUser className="text-4xl text-blue-600" />
-            <button type="button" onClick={onChooseFile} className="w-8 h-8 flex items-center justify-center bg-blue-700 hover:bg-blue-800 text-white rounded-full absolute -bottom-1 -right-1 border-none cursor-pointer">
+            <button type="button" onClick={onChooseFile} className="w-6 h-6 flex items-center justify-center bg-blue-700 hover:bg-blue-800 text-white rounded-full absolute -bottom-1 -right-1 border-none cursor-pointer">
               <LuUpload />
             </button>
           </div>
         ) : (
-          <div className="w-20 h-20 flex items-center justify-center bg-blue-100/50 rounded-full relative">
-            <img src={previewUrl} alt="profilr photo" className="w-20 h-20 object-cover rounded-full" />
-            <button type="button" onClick={handleRemoveimage} className="w-8 h-8 flex items-center justify-center bg-red-700 hover:bg-red-800 text-white rounded-full absolute -bottom-1 -right-1 border-none cursor-pointer">
+          <div className="w-16 h-16 flex items-center justify-center bg-blue-100/50 rounded-full relative">
+            <img src={previewUrl} alt="profilr photo" className="w-16 h-16 object-cover rounded-full" />
+            <button type="button" onClick={handleRemoveimage} className="w-6 h-6 flex items-center justify-center bg-red-700 hover:bg-red-800 text-white rounded-full absolute -bottom-1 -right-1 border-none cursor-pointer">
                 <LuTrash />
             </button>
           </div>

@@ -6,10 +6,12 @@ import DashboardLayout from "../../components/layouts/DashboardLayout";
 import moment from "moment";
 import AvatarGroup from "../../components/AvatarGroup";
 import { LuSquareArrowOutUpRight } from "react-icons/lu";
+import LoadingAnimation from "../../components/LoadingAnimation";
 
 const ViewTaskDetails = () => {
   const { id } = useParams();
   const [task, setTask] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const getTaskTagColor = (status) => {
     switch (status) {
@@ -25,6 +27,7 @@ const ViewTaskDetails = () => {
   // get task by id
   const getTaskInfoById = async () => {
     try {
+      setLoading(true);
       const response = await axiosInstance.get(
         API_PATH.TASKS.GET_TASK_BY_ID(id)
       );
@@ -32,8 +35,10 @@ const ViewTaskDetails = () => {
         const taskInfo = response.data;
         setTask(taskInfo);
       }
+      setLoading(false);
     } catch (error) {
       console.error("Error in fetching users", error);
+      setLoading(false);
     }
   };
 
@@ -48,7 +53,7 @@ const ViewTaskDetails = () => {
         const response = await axiosInstance.put(API_PATH.TASKS.UPDATE_TODO_CHECKLIST(taskId), {
           todoChecklist
         })
-        if (response.status === 200){
+        if (response.status === 200) {
           setTask(response.data?.task || task)
         } else {
           // optinally revert the toggel if the api call fails 
@@ -78,89 +83,91 @@ const ViewTaskDetails = () => {
   return (
     <DashboardLayout activeMenu={"My Tasks"}>
       <div className="mt-5">
-        {task && (
-          <div className="grid grid-cols-1 md:grid-cols-4 mt-4">
-            <div className="form-card col-span-3">
-              <div className="flex items-center justify-between">
-                <h2 className="text-sm md:text-xl font-medium">
-                  {task?.title}
-                </h2>
-                <div
-                  className={`text-[11px] md:text-[13px] font-medium ${getTaskTagColor(
-                    task?.status
-                  )} px-4 py-0.5 rounded`}
-                >
-                  {task?.status}
-                </div>
-              </div>
-
-              {/* description */}
-              <div className="mt-4">
-                <InfoBox label="Description" value={task?.description} />
-              </div>
-
-              {/* priority, due-date, assigned to block  */}
-              <div className="grid grid-cols-12 gap-4 mt-4">
-                {/* priority */}
-                <div className="col-span-6 md:col-span-4">
-                  <InfoBox label="Priority" value={task?.priority} />
+        {loading ? <LoadingAnimation /> : (<>
+          {task && (
+            <div className="grid grid-cols-1 md:grid-cols-4 mt-4">
+              <div className="form-card col-span-3">
+                <div className="flex items-center justify-between">
+                  <h2 className="text-sm md:text-xl font-medium">
+                    {task?.title}
+                  </h2>
+                  <div
+                    className={`text-[11px] md:text-[13px] font-medium ${getTaskTagColor(
+                      task?.status
+                    )} px-4 py-0.5 rounded`}
+                  >
+                    {task?.status}
+                  </div>
                 </div>
 
-                {/* due date */}
-                <div className="col-span-6 md:col-span-4">
-                  <InfoBox
-                    label="Due Date"
-                    value={
-                      task?.dueDate
-                        ? moment(task?.dueDate).format("Do MMM YYYY")
-                        : "N/A"
-                    }
-                  />
+                {/* description */}
+                <div className="mt-4">
+                  <InfoBox label="Description" value={task?.description} />
                 </div>
 
-                {/* assigned to */}
-                <div className="col-span-6 md:col-span-4">
-                  <label className="text-xs font-medium text-slate-500">
-                    Assigned To
-                  </label>
-                  <AvatarGroup
-                    avatar={task?.assignedTo?.map(
-                      (item) => item?.profileImageUrl || []
-                    )}
-                    maxVisible={5}
-                  />
+                {/* priority, due-date, assigned to block  */}
+                <div className="grid grid-cols-12 gap-4 mt-4">
+                  {/* priority */}
+                  <div className="col-span-6 md:col-span-4">
+                    <InfoBox label="Priority" value={task?.priority} />
+                  </div>
+
+                  {/* due date */}
+                  <div className="col-span-6 md:col-span-4">
+                    <InfoBox
+                      label="Due Date"
+                      value={
+                        task?.dueDate
+                          ? moment(task?.dueDate).format("Do MMM YYYY")
+                          : "N/A"
+                      }
+                    />
+                  </div>
+
+                  {/* assigned to */}
+                  <div className="col-span-6 md:col-span-4">
+                    <label className="text-xs font-medium text-slate-500">
+                      Assigned To
+                    </label>
+                    <AvatarGroup
+                      avatar={task?.assignedTo?.map(
+                        (item) => item?.profileImageUrl || []
+                      )}
+                      maxVisible={5}
+                    />
+                  </div>
                 </div>
-              </div>
 
-              {/* todo checklist */}
-              <div className="mt-2">
-                <label className="text-xs font-medium text-gray-500">
-                  TODO Checklist
-                </label>
-                {task?.todoChecklist?.map((item, index) => (
-                  <TodoChecklist
-                    key={`todo_${index}`}
-                    text={item.text}
-                    isChecked={item?.completed}
-                    onChange={() => updateTodoChecklist(index)}
-                  />
-                ))}
-              </div>
-
-              {/* attachments */}
-              {task?.attachments?.length > 0 && (
+                {/* todo checklist */}
                 <div className="mt-2">
-                  <label className="text-xs font-medium text-slate-500">
-                    Attachments
+                  <label className="text-xs font-medium text-gray-500">
+                    TODO Checklist
                   </label>
-                  {task?.attachments?.map((link, index) => (
-                    <Attachment key={`link${index}`} link={link} index={index} onClick={() => handleLinkClick(link)} />
+                  {task?.todoChecklist?.map((item, index) => (
+                    <TodoChecklist
+                      key={`todo_${index}`}
+                      text={item.text}
+                      isChecked={item?.completed}
+                      onChange={() => updateTodoChecklist(index)}
+                    />
                   ))}
                 </div>
-              )}
+
+                {/* attachments */}
+                {task?.attachments?.length > 0 && (
+                  <div className="mt-2">
+                    <label className="text-xs font-medium text-slate-500">
+                      Attachments
+                    </label>
+                    {task?.attachments?.map((link, index) => (
+                      <Attachment key={`link${index}`} link={link} index={index} onClick={() => handleLinkClick(link)} />
+                    ))}
+                  </div>
+                )}
+              </div>
             </div>
-          </div>
-        )}
+          )}
+        </>)}
       </div>
     </DashboardLayout>
   );
