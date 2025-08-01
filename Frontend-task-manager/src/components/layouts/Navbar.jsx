@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Sidemenu from "./Sidemenu";
 import { HiOutlineMenu, HiOutlineX } from 'react-icons/hi';
+import { Link } from "react-router-dom";
 
 const Navbar = ({ activeMenu }) => {
   const [openSideMenu, setOpenSideMenu] = useState(false);
@@ -19,10 +20,10 @@ const Navbar = ({ activeMenu }) => {
             <HiOutlineMenu className="text-2xl" />
           )}
         </button>
-        <a href="/" className="no-underline text-xl font-bold bg-slate-200 px-4 py-1 rounded-lg">
+        <Link to='/' className="no-underline text-xl font-bold bg-slate-200 px-4 py-1 rounded-lg">
           <span className="text-red-500">Task</span>
           <span className="text-yellow-400">Manager</span>
-        </a>
+        </Link>
         {openSideMenu && (
           <div className="fixed top-[68px] -ml-4 bg-white">
             <Sidemenu activeMenu={activeMenu} />

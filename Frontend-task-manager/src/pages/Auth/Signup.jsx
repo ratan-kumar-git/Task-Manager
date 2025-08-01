@@ -5,7 +5,7 @@ import Input from "../../components/inputs/Input";
 import ProfilePhotoSelector from "../../components/inputs/ProfilePhotoSelector";
 import { API_PATH } from "../../utils/apiPath";
 import axiosInstance from "../../utils/axiosInstance";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import uploadImage from "../../utils/uploadImage";
 import { UserContext } from "../../context/useContext";
 
@@ -136,9 +136,7 @@ const Signup = () => {
 
             <p className="">
               I have already Account.{" "}
-              <a href="/login" className="text-blue-600 underline">
-                Login
-              </a>
+              <Link to="/login" className="text-blue-600 underline">Login</Link>
             </p>
           </div>
         </form>
