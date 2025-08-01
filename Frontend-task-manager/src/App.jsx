@@ -13,7 +13,7 @@ import Signup from "./pages/Auth/Signup";
 import Dashboard from "./pages/Admin/Dashboard";
 import MangeTasks from "./pages/Admin/MangeTasks";
 import CreateTask from "./pages/Admin/CreateTask";
-import MangeUsers from "./pages/Admin/MangeUsers";
+
 
 import UserDashboard from "./pages/User/UserDashboard";
 import MyTasks from "./pages/User/MyTasks";
@@ -22,6 +22,7 @@ import ViewTaskDetails from "./pages/User/ViewTaskDetails";
 import PrivateRoute from "./routes/Privateroute";
 import UserProvider, { UserContext } from "./context/useContext";
 import { Toaster } from "react-hot-toast";
+import ManageUsers from "./pages/Admin/ManageUsers";
 
 const App = () => {
   return (
@@ -37,7 +38,7 @@ const App = () => {
             <Route path="/admin/dashboard" element={<Dashboard />} />
             <Route path="/admin/tasks" element={<MangeTasks />} />
             <Route path="/admin/create-task" element={<CreateTask />} />
-            <Route path="/admin/users" element={<MangeUsers />} />
+            <Route path="/admin/users" element={<ManageUsers />} />
             <Route path="/admin/dashboard" element={<Dashboard />} />
           </Route>
 

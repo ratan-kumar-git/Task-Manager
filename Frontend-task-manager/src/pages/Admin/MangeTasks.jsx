@@ -3,9 +3,10 @@ import DashboardLayout from "../../components/layouts/DashboardLayout";
 import { useNavigate } from "react-router-dom";
 import axiosInstance from "../../utils/axiosInstance";
 import { API_PATH } from "../../utils/apiPath";
-import { LuFileArchive, LuFileSpreadsheet } from "react-icons/lu";
+import { LuFileSpreadsheet } from "react-icons/lu";
 import TaskStatusTab from "../../components/TaskStatusTab";
 import TaskCard from "../../components/cards/TaskCard";
+import toast from "react-hot-toast";
 
 const MangeTasks = () => {
   const [allTasks, setAllTasks] = useState([]);
@@ -43,7 +44,27 @@ const MangeTasks = () => {
   };
 
   // download task report
-  const handleDownloadReport = async () => {};
+  const handleDownloadReport = async () => {
+    try {
+      const response = await axiosInstance.get(API_PATH.REPORTS.EXPORT_TASKS, {
+        responseType: "blob",
+      })
+
+      // create a url for blob
+      const url = window.URL.createObjectURL(new Blob([response.data]))
+      const link = document.createElement('a')
+      link.href = url
+      link.setAttribute("download", "task_details.xlsx")
+      document.body.appendChild(link)
+      link.click()
+      link.parentNode.removeChild(link)
+      window.URL.revokeObjectURL(url)
+
+    } catch (error) {
+      console.error("Error in fetching Task report: ", error);
+      toast.error("Failed to download task report. Please try again")
+    }
+  };
 
   useEffect(() => {
     getAllTasks(filterStatus);
@@ -96,7 +117,7 @@ const MangeTasks = () => {
               dueDate={item.dueDate}
               assignedTo={item.assignedTo?.map((item) => item.profileImageUrl)}
               attachmentCount={item.attachments?.length || 0}
-              completedTodoCount={item.completedTodoCount?.length || 0}
+              completedTodoCount={item.completedTodoCount || 0}
               todoChecklist={item.todoChecklist || []}
               onClick={() => handleClick(item)}
             />
