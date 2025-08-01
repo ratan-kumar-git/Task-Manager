@@ -19,7 +19,7 @@ import UserDashboard from "./pages/User/UserDashboard";
 import MyTasks from "./pages/User/MyTasks";
 import ViewTaskDetails from "./pages/User/ViewTaskDetails";
 
-import PrivateRoute from "./routes/Privateroute";
+import PrivateRoute from "./routes/PrivateRoute";
 import UserProvider, { UserContext } from "./context/useContext";
 import { Toaster } from "react-hot-toast";
 import ManageUsers from "./pages/Admin/ManageUsers";
