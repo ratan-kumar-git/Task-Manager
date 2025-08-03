@@ -1,7 +1,10 @@
-# **Task & To-Do Management System**
+# **Task Manager - Task Management System with Sub-Tasks (To-Dos)**
+- Website Demo Link:- https://task-manager-ratan.vercel.app/login
+- **For Admin: -** Gmail- admin@gmail.com pass- admin@123456
+- **For User: -** Gmail- user1@gmail.com pass- 123456
 
 ## 📌 Introduction
-**"Task Manager** - Task Management System with Sub-Tasks (To-Dos)**”** is a web platform that enables admins to create tasks, set priorities, assign task to users, and track progress in real-time. With clear priority levels and status updates, it ensures better organization, accountability, and productivity within teams. The system enhances collaboration, prevents delays, and ensures all team members stay updated on progress in real time. Built with Mongoose, Node.js, Express, and React, it offers a scalable and modern solution for task management.
+**"Task Manager”** is a web platform that enables admins to create tasks, set priorities, assign task to users, and track progress in real-time. With clear priority levels and status updates, it ensures better organization, accountability, and productivity within teams. The system enhances collaboration, prevents delays, and ensures all team members stay updated on progress in real time. Built with Mongoose, Node.js, Express, and React, it offers a scalable and modern solution for task management.
 
 
 ## 🚀 Features
