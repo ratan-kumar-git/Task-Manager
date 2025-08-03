@@ -17,6 +17,7 @@ const Login = () => {
 
   const loginSubmitHandler = async (e) => {
     e.preventDefault();
+    setError("");
     const emailError = validateEmail(email);
     if (emailError) {
       setError(emailError);
@@ -26,6 +27,12 @@ const Login = () => {
       setError("Please enter a valid password");
       return;
     }
+
+    if (password.length < 6) {
+      setError("Password must be at least 6 characters long");
+      return;
+    }
+
 
     // api call
     try {
@@ -38,6 +45,8 @@ const Login = () => {
       if (token) {
         localStorage.setItem("token", token);
         updateUser(response.data)
+        setEmail("");
+        setPassword("");
 
         // redirect based on role
         if (role === "admin") {
@@ -52,11 +61,8 @@ const Login = () => {
       } else {
         setError("Something went wrong. Please try again.");
       }
+      setTimeout(() => setError(""), 3000);
     }
-
-    setError("");
-    setEmail("");
-    setPassword("");
   };
   return (
     <>
